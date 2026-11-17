@@ -1,0 +1,87 @@
+:root{
+  --bg: #1b0b2a; /* roxo bem escuro */
+  --card: #2a0f3f;
+  --accent: #7b3fbf; /* roxo vibrante */
+  --light: #cfa7ff; /* lilás */
+  --text: #ffffff;
+  --found: #28c76f; /* verde para encontrado */
+}
+
+*{box-sizing: border-box}
+html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+body{background:linear-gradient(180deg,var(--bg),#12061a);color:var(--text);}
+.container{max-width:1100px;margin:24px auto;padding:16px}
+.cabecalho{text-align:center;margin-bottom:12px}
+.cabecalho h1{margin:0;font-size:clamp(20px,3vw,34px);letter-spacing:1px}
+.subtitulo{margin:6px 0 0;color:var(--light)}
+
+.jogo{display:flex;gap:16px;align-items:flex-start;justify-content:center;flex-wrap:wrap}
+.painel-esquerdo{display:flex;flex-direction:column;gap:12px;align-items:center}
+.painel-direito{min-width:240px;max-width:320px;width:100%}
+
+/* Em telas maiores, fixar layout lado a lado: grade à esquerda e perguntas à direita */
+@media (min-width:900px){
+  .jogo{display:grid;grid-template-columns:minmax(420px,1fr) 320px;align-items:start;justify-content:space-between}
+  .painel-esquerdo{align-items:stretch}
+  .painel-direito{width:100%;max-width:320px}
+}
+
+.card{background:linear-gradient(180deg,var(--card),#351143);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.45)}
+.tabuleiro-card{padding:10px}
+
+#tabuleiro{display:grid;gap:6px;--cols:18;width:min(88vw,720px);touch-action:none}
+#tabuleiro .celula{display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.04);border-radius:6px;border:1px solid rgba(255,255,255,0.06);user-select:none;cursor:pointer}
+
+/* cada célula deve ser quadrada; usamos aspect-ratio */
+#tabuleiro .celula{aspect-ratio:1/1;font-weight:600;font-size:clamp(12px,1.4vw,18px);color:var(--text);}
+
+#tabuleiro{grid-template-columns:repeat(var(--cols),1fr)}
+
+.celula.selecionada{background:linear-gradient(90deg, rgba(123,63,191,0.22), rgba(124,50,180,0.16));outline:2px solid rgba(123,63,191,0.45);color:#ffffff;transition:background 140ms,color 140ms,transform 120ms}
+.celula.selecionada:hover{transform:translateY(-2px)}
+.celula.encontrada{background:linear-gradient(90deg, rgba(40,199,111,0.2), rgba(40,199,111,0.12));outline:2px solid rgba(40,199,111,0.35);color:#011e10}
+
+/* animação ao encontrar palavra */
+.celula.animacao{animation: pulsar 700ms ease-in-out 0s 1 both}
+@keyframes pulsar{
+  0%{transform:scale(1);box-shadow:0 0 0 rgba(123,63,191,0)}
+  40%{transform:scale(1.06);box-shadow:0 8px 22px rgba(123,63,191,0.18)}
+  100%{transform:scale(1);box-shadow:0 0 0 rgba(123,63,191,0)}
+}
+
+.lista-card h2{margin:0 0 8px 0}
+.lista-palavras{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+.lista-palavras li{padding:8px;border-radius:6px;background:rgba(255,255,255,0.02);display:flex;justify-content:space-between;align-items:center}
+.lista-palavras li.encontrada{background:linear-gradient(90deg, rgba(40,199,111,0.12), rgba(40,199,111,0.06));text-decoration:line-through;color: #e6fff3}
+
+.info-card{margin-top:12px}
+
+.controles{display:flex;gap:12px;align-items:center}
+.botao{background:var(--accent);color:var(--text);border:none;padding:8px 12px;border-radius:8px;font-weight:600;cursor:pointer}
+.botao:hover{filter:brightness(1.05)}
+.progresso{color:var(--light);font-weight:600}
+
+/* botão secundário (para fechar popup) */
+.botao-secundario{background:transparent;border:1px solid rgba(255,255,255,0.08);color:var(--text);}
+
+.mensagem-final{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(0deg,rgba(11,4,19,0.6),rgba(11,4,19,0.6))}
+.mensagem-final .card{max-width:360px;text-align:center}
+
+/* garantir que o atributo [hidden] realmente oculte o popup mesmo com regras de display */
+.mensagem-final[hidden]{display:none !important;}
+
+.rodape{margin-top:18px;text-align:center;color:rgba(255,255,255,0.6)}
+
+/* responsividade */
+@media (max-width:900px){
+  .jogo{padding:8px}
+  .painel-direito{max-width:100%}
+  #tabuleiro{--cols:18;width:min(94vw,640px)}
+}
+
+@media (max-width:520px){
+  #tabuleiro{--cols:14;width:90vw}
+}
+
+/* evitar seleção de texto acidental */
+.lista-palavras li, .botao{user-select:none}

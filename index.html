@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DESAFIO DA ARQUITETURA — Caça-palavras</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <header class="cabecalho">
+      <h1>DESAFIO DA ARQUITETURA</h1>
+      <p class="subtitulo">Encontre as palavras e teste seus conhecimentos!</p>
+    </header>
+
+    <section class="jogo">
+      <div class="painel-esquerdo">
+        <div class="card tabuleiro-card">
+          <div id="tabuleiro" class="tabuleiro" aria-label="Tabuleiro do caça-palavras"></div>
+        </div>
+        <div class="controles">
+          <button id="reiniciar" class="botao">Reiniciar jogo</button>
+          <div id="progresso" class="progresso">0 de 12 palavras encontradas</div>
+        </div>
+      </div>
+
+    <aside class="painel-direito">
+        <div class="card lista-card">
+          <h2>Perguntas</h2>
+          <ul id="lista-palavras" class="lista-palavras"></ul>
+        </div>
+        <div class="card info-card" id="info-card">
+          <h3>Explicação</h3>
+          <p id="explicacao">Encontre uma palavra para ver uma breve explicação.</p>
+        </div>
+      </aside>
+    </section>
+
+    <div id="mensagem-final" class="mensagem-final" hidden>
+      <div class="card">
+        <h2>Parabéns!</h2>
+        <p>Você encontrou todas as palavras do desafio.</p>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
+          <button id="jogar-novamente" class="botao">Jogar novamente</button>
+          <button id="fechar-popup" class="botao botao-secundario">Fechar</button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="rodape">
+      <small>Projeto educativo de Arquitetura Computacional — Caça-palavras</small>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
